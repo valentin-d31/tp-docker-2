@@ -1,7 +1,29 @@
 version: '3.9'
-  services:
-    node:
-      ...
 
-    mysql:
-      ...
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: my_password
+      MYSQL_ROOT_PASSWORD: my_root_password
+    ports:
+      - "3306:3306"
+  app:
+    image: ma_super_app
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 3306
+      DATABASE_USERNAME: my_user
+      DATABASE_PASSWORD: my_password
+      DATABASE_NAME: my_database
+
+
+
+
+
